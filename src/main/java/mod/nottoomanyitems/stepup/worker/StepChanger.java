@@ -54,11 +54,16 @@ public class StepChanger {
             //if (!StepUp.versionChecker.isLatestVersion()) {
             //    updateMessage();
             //}
-            message();
+            //message();
             StepUp.firstRun = false;
         }
     }
 
+    public static void init() {
+    	autoJump();
+        message();
+    }
+    
     //@SubscribeEvent
     public static void onKeyInput(KeyInputEvent event) {
     	int autoJumpState = StepUpConfig.COMMON.autoJumpState.get();
@@ -71,10 +76,14 @@ public class StepChanger {
             } else if (autoJumpState == AutoJumpState.ENABLED.getLevelCode()) {
             	StepUpConfig.COMMON.autoJumpState.set(AutoJumpState.MINECRAFT.getLevelCode()); //2 Minecraft Enabled
             }
-            //StepUpConfig.save();
             autoJump();
             message();
         }
+        
+       /* if (StepUp.inti == true) {
+        	StepUp.inti = false;
+        	init();
+        	}*/
     }
 
     private static void autoJump() {
@@ -95,7 +104,7 @@ public class StepChanger {
         if (autoJumpState == AutoJumpState.DISABLED.getLevelCode()) {
             m = m + (Object) TextFormatting.RED + I18n.format(AutoJumpState.DISABLED.getDesc());
         } else if (autoJumpState == AutoJumpState.ENABLED.getLevelCode()) {
-            m = m + (Object) TextFormatting.GREEN + I18n.format(AutoJumpState.ENABLED.getDesc());
+            m = m + (Object) TextFormatting.BLUE + I18n.format(AutoJumpState.ENABLED.getDesc());
         } else if (autoJumpState == AutoJumpState.MINECRAFT.getLevelCode()) {
             m = m + (Object) TextFormatting.GREEN + I18n.format(AutoJumpState.MINECRAFT.getDesc());
         }
@@ -118,8 +127,8 @@ public class StepChanger {
     
     public enum AutoJumpState
     {
-        DISABLED (0,"msg.stepup.enabled"), //StepUp Enabled
-        ENABLED (1,"msg.stepup.disabled"), //"All Disabled" 
+        DISABLED (0,"msg.stepup.disabled"), //StepUp Enabled
+        ENABLED (1,"msg.stepup.enabled"), //"All Disabled" 
         MINECRAFT (2,"msg.stepup.minecraft"); //"Minecraft Jump Enabled" 
         
         private final int levelCode;
