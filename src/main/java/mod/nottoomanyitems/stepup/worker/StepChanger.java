@@ -38,7 +38,7 @@ public class StepChanger {
         player = event.player;
         int autoJumpState = StepUpConfig.COMMON.autoJumpState.get();
         
-		if (player.isSneaking()) {
+		if (player.isSteppingCarefully()) {
             player.stepHeight = .6f;
         } else if (autoJumpState == 0 && player.stepHeight >= 1.0f) { //All Disabled
         	player.stepHeight = .6f;
